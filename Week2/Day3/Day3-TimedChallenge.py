@@ -15,8 +15,8 @@ print(reversed_sentence)
 # find perfect numbers
 number_input = int(input("Please enter a number: "))  # assume user input is perfect. Only number, not letters.
 division_sum = 0
-for i in range(1, 10):
-    if (i != number_input) and number_input % i == 0:
+for i in range(1, number_input):
+    if number_input % i == 0:
         division_sum += i
 if division_sum == number_input:
     print("Perfect number.")
