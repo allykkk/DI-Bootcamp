@@ -17,6 +17,7 @@ cat_three = Cat("Mocha", 1)
 
 def find_oldest(cats):
     max_age = 0
+    oldest_cat=None
     for cat in cats:
         if cat.age >= max_age:
             max_age = cat.age
@@ -24,8 +25,8 @@ def find_oldest(cats):
     return oldest_cat
 
 
-oldest_cat = find_oldest([cat_one, cat_two, cat_three])
-print(f"The oldest cat is {oldest_cat.name}, and is {oldest_cat.age} years old.")
+old_cat = find_oldest([cat_one, cat_two, cat_three])
+print(f"The oldest cat is {old_cat.name}, and is {old_cat.age} years old.")
 print("\n")
 
 
@@ -105,6 +106,7 @@ class Zoo:
     # In this class create a method __init__ that takes one parameter: zoo_name.
     # It instantiates two attributes: animals (an empty list) and name (name of the zoo).
     def __init__(self, zoo_name):
+        self.grouped_animals = {}
         self.animals = []
         self.name = zoo_name
 
@@ -131,20 +133,21 @@ class Zoo:
         sorted_animals = {}
         for animal in sorted(self.animals):
             first_letter = animal[0]
-            if first_letter in sorted_animals:
+            if first_letter in sorted_animals.keys():
                 sorted_animals[first_letter].append(animal)
             else:
                 sorted_animals[first_letter] = [animal]
-        grouped_animals = {}
+        self.grouped_animals = {}
         group_num = 1
         for key in sorted(sorted_animals.keys()):
-            grouped_animals[group_num] = sorted_animals[key]
+            self.grouped_animals[group_num] = sorted_animals[key]
             group_num += 1
-        return grouped_animals
 
     # Create a method called get_groups that prints the animal/animals inside each group.
-    def get_groups(self, grouped_animals):
-        for group_number, group_value in grouped_animals.items():
+    def get_groups(self):
+        # sort again in case the list of animals changed.
+        self.sort_animals()
+        for group_number, group_value in self.grouped_animals.items():
             print(f"Group {group_number} has animals: {' '.join(group_value)}")
 
 
@@ -153,5 +156,5 @@ ramat_gan_safari.add_animal("Ape", "Baboon", "Bear", "Cat", "Cougar", "Eel", "Em
 ramat_gan_safari.get_animal()
 ramat_gan_safari.sell_animal("Bee")
 ramat_gan_safari.sell_animal("Giraffe")
-grouped_animals = ramat_gan_safari.sort_animals()
-ramat_gan_safari.get_groups(grouped_animals)
+ramat_gan_safari.sort_animals()
+ramat_gan_safari.get_groups()
