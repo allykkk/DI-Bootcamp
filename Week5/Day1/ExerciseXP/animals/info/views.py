@@ -1,10 +1,6 @@
 import json
 from django.shortcuts import render
 
-from django.shortcuts import render
-
-
-# Create your views here.
 
 def open_json_file():
     with open('data.json') as file:
