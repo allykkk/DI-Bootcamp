@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from info.views import animal_detail,family_detail
+from info.views import animal_detail,family_detail,animal_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('family/<int:family_id>/', family_detail, name='family_detail'),
     path('animal/<int:animal_id>/', animal_detail, name='animal_detail'),
+    path('animal/',animal_list,name='animal_list')
 ]

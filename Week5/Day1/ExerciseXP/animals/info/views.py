@@ -39,3 +39,12 @@ def animal_detail(request, animal_id):
         'animal': animal
     }
     return render(request, 'animal_detail.html', context)
+
+
+def animal_list(request):
+    data=open_json_file()
+    animals =data['animals']
+    context={
+        'animals':animals
+    }
+    return render(request, 'animal_list.html', context)
