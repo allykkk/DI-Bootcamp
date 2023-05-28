@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>People List</title>
+</head>
+<body>
+    <h1>People List</h1>
+    <ul>
+        {% for person in people %}
+        <li>
+            <a href="/people/{{ person.id }}/">{{ person.name }}</a>
+            - Age: {{ person.age }} - Country: {{ person.country }}
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+</body>
+</html>
