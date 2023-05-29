@@ -1,0 +1,89 @@
+{
+  "animals": [
+    {
+      "id": 1,
+      "name": "Dog",
+      "legs": 4,
+      "weight": 5.67,
+      "height": 4.2,
+      "speed": 34,
+      "family": 2
+    },
+    {
+      "id": 2,
+      "name": "Domestic Cat",
+      "legs": 4,
+      "weight": 5.67,
+      "height": 4.2,
+      "speed": 34,
+      "family": 1
+    },
+    {
+      "id": 3,
+      "name": "Panther",
+      "legs": 4,
+      "weight": 5.67,
+      "height": 4.2,
+      "speed": 34,
+      "family": 1
+    },
+    {
+      "id": 4,
+      "name": "Snake",
+      "legs": 0,
+      "weight": 2.5,
+      "height": 1.5,
+      "speed": 10,
+      "family": 3
+    },
+    {
+      "id": 5,
+      "name": "Bee",
+      "legs": 6,
+      "weight": 0.1,
+      "height": 0.5,
+      "speed": 20,
+      "family": 4
+    },
+    {
+      "id": 6,
+      "name": "Tarantula",
+      "legs": 8,
+      "weight": 0.3,
+      "height": 0.8,
+      "speed": 5,
+      "family": 4
+    },
+    {
+      "id": 7,
+      "name": "Frog",
+      "legs": 4,
+      "weight": 0.2,
+      "height": 0.6,
+      "speed": 8,
+      "family": 5
+    }
+  ],
+  "families": [
+    {
+      "id": 1,
+      "name": "Felidae"
+    },
+    {
+      "id": 2,
+      "name": "Canidae"
+    },
+    {
+      "id": 3,
+      "name": "Serpentes"
+    },
+    {
+      "id": 4,
+      "name": "Hymenoptera"
+    },
+    {
+      "id": 5,
+      "name": "Bufonidae"
+    }
+  ]
+}
