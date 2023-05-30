@@ -45,6 +45,7 @@ class CategoriesView(View):
         context = {'categories': categories}
         return render(request, 'categories.html', context)
 
+
 class GifsView(View):
     def get(self, request):
         gifs = Gif.objects.all()
@@ -57,11 +58,34 @@ class CategoryView(View):
         category = Category.objects.get(id=category_id)
         gifs = category.gifs.all()
         context = {'category': category, 'gifs': gifs}
-        return render(request,'category.html',context)
+        return render(request, 'category.html', context)
 
 
 class GifView(View):
-    def get(self,request,gif_id):
-        gif=Gif.objects.get(id=gif_id)
-        context={'gif': gif}
-        return render(request,'gif.html',context)
+    def get(self, request, gif_id):
+        gif = Gif.objects.get(id=gif_id)
+        context = {'gif': gif}
+        return render(request, 'gif.html', context)
+
+
+def plus_like(request, gif_id):
+    gif = Gif.objects.get(id=gif_id)
+    gif.likes += 1
+    gif.save()
+    return redirect('gif', gif_id=gif_id)
+
+
+def minus_like(request, gif_id):
+    gif = Gif.objects.get(id=gif_id)
+    if gif.likes > 0:
+        gif.likes -= 1
+        gif.save()
+    return redirect('gif', gif_id=gif_id)
+
+
+
+def popular_gifs_view(request):
+    gifs = Gif.objects.filter(likes__gt=0).order_by('-likes')
+    context = {'gifs': gifs}
+    return render(request, 'popular_gifs.html', context)
+

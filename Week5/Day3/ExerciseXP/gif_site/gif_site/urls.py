@@ -24,6 +24,7 @@ from gifs.views import (
     CategoriesView,
     GifsView,
     GifView,
+    plus_like, minus_like, popular_gifs_view
 )
 
 urlpatterns = [
@@ -35,4 +36,7 @@ urlpatterns = [
     path('categories/', CategoriesView.as_view(), name='categories'),
     path('gifs/', GifsView.as_view(), name='gifs'),
     path('gif/<int:gif_id>/', GifView.as_view(), name='gif'),
+    path('gif/<int:gif_id>/plus-likes/', plus_like, name='plus-likes'),
+    path('gif/<int:gif_id>/minus-likes/', minus_like, name='minus-likes'),
+    path('popular-gifs/', popular_gifs_view, name='popular-gifs'),
 ]
