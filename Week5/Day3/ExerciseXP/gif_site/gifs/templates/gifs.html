@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gifs</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Gifs</h1>
+    <ul>
+        {% for gif in gifs %}
+            <li><a href="{% url 'gif' gif.id %}">{{ gif.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+</body>
+</html>
