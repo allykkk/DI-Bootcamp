@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{category.name}}</title>
+</head>
+<body>
+
+{% for todo in todos %}
+
+        <strong>Title:</strong> {{ todo.title }}<br>
+        <strong>Details:</strong> {{ todo.details }}<br>
+        <strong>Date Creation:</strong> {{ todo.date_creation }}<br>
+        <strong>Deadline Date:</strong> {{ todo.deadline_date }}<br>
+        <strong>Category:</strong> {{ todo.category }}<br>
+        <a href="#">DONE</a>
+
+{% endfor %}
+
+</body>
+</html>

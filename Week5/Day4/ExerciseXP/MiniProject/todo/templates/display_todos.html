@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:list-style-type="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Todos</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Todos</h1>
+<!--make table that displays done& undone todos-->
+<table>
+    <thead>
+    <tr>
+        <th>Uncompleted Todos</th>
+        <th>Completed Todos</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            {% for todo in todos %}
+            {% if not todo.has_been_done %}
+            <strong>Title:</strong> {{ todo.title }}<br>
+            <strong>Details:</strong> {{ todo.details }}<br>
+            <strong>Date Creation:</strong> {{ todo.date_creation }}<br>
+            <strong>Deadline Date:</strong> {{ todo.deadline_date }}<br>
+            <strong>Category:</strong> {{ todo.category }}<br>
+            <a href="{% url 'mark_todo_done' todo.id %}">DONE</a>
+            <hr>
+            {% endif %}
+            {% endfor %}
+        </td>
+        <td>
+            {% for todo in todos %}
+            {% if todo.has_been_done %}
+            <strong>Title:</strong> {{ todo.title }}<br>
+            <strong>Details:</strong> {{ todo.details }}<br>
+            <strong>Date Creation:</strong> {{ todo.date_creation }}<br>
+            <strong>Deadline Date:</strong> {{ todo.deadline_date }}<br>
+            <strong>Category:</strong> {{ todo.category }}<br>
+            <a href="{% url 'mark_todo_undone' todo.id %}">UNDONE</a>
+            <hr>
+            {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+{% endblock %}
+
+</body>
+</html>
