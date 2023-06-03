@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental Detail</title>
+</head>
+<body>
+
+<h1>Rental Detail</h1>
+<p>Customer: <a href="{% url 'customer_detail' rental.customer.pk %}">{{ rental.customer }}</a></p>
+<p>Vehicle: <a href="{% url 'vehicle_detail' rental.vehicle.pk %}">{{ rental.vehicle }}</a></p>
+{% if rental.return_date%}
+    <p>Returned on : {{rental.return_date}}</p>
+{% else %}
+    <b><i>Not yet returned</i></b>
+{% endif %}
+
+</body>
+</html>

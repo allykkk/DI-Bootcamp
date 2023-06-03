@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rentals</title>
+</head>
+<body>
+
+<!--<h1>Rental List</h1>-->
+<!--<ul>-->
+<!--    {% for rental in rentals %}-->
+<!--    <li><a href="{% url 'rental_detail' rental.pk %}">{{rental}}</a></li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+
+<h1>Returned Rentals</h1>
+<ul>
+  {% for rental in returned_rentals %}
+  <li><a href="{% url 'rental_detail' rental.pk %}">{{rental}}</a>&nbsp &nbsp|&nbsp&nbsp Rental Date: {{rental.rental_date}}</li>
+  {% endfor %}
+</ul>
+
+<h1>Unreturned Rentals</h1>
+<ul>
+  {% for rental in unreturned_rentals %}
+  <li><a href="{% url 'rental_detail' rental.pk %}">{{rental}}</a> | Rental Date: {{rental.rental_date}}</li>
+  {% endfor %}
+</ul>
+
+
+
+</body>
+</html>

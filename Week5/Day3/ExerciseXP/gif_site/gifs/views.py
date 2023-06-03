@@ -83,9 +83,7 @@ def minus_like(request, gif_id):
     return redirect('gif', gif_id=gif_id)
 
 
-
 def popular_gifs_view(request):
     gifs = Gif.objects.filter(likes__gt=0).order_by('-likes')
     context = {'gifs': gifs}
     return render(request, 'popular_gifs.html', context)
-
