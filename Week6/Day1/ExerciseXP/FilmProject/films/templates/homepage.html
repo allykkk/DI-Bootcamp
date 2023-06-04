@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+</head>
+<body>
+
+{% extends 'partials/base.html' %}
+
+{% block content %}
+  <h1>Homepage</h1>
+  {% for film in films %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ film.title }}</h5>
+        <p class="card-text">Release Date: {{ film.release_date }}</p>
+        <p class="card-text">Created in Country: {{ film.created_in_country.name }}</p>
+        <p class="card-text">Available in Countries:
+          {% for country in film.available_in_countries.all %}
+            {{ country.name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        <p class="card-text">Category:
+          {% for category in film.category.all %}
+            {{ category.name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        <p class="card-text">Director:
+          {% for director in film.director.all %}
+            {{ director.first_name }} {{ director.last_name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        <h6 class="card-subtitle mb-2 text-muted">Reviews:</h6>
+        <ul>
+            {% for review in film.reviews.all %}
+              <li>{{ review.review_text }} - Rating: {{ review.rating }}</li>
+            {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+
+</body>
+</html>
+
+
