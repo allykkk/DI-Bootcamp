@@ -9,6 +9,7 @@
 {% extends 'partials/base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
   <h1>Homepage</h1>
   {% for film in films %}
     <div class="card mb-3">
@@ -40,6 +41,10 @@
       </div>
     </div>
   {% endfor %}
+
+{% else %}
+    <h1>Please Log In ! </h1>
+{% endif %}
 {% endblock %}
 
 

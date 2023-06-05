@@ -1,0 +1,19 @@
+{% load static %}
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+
+    {% if user.is_authenticated %}
+        <a class="nav-link" href="{% url 'films:homepage' %}">Home</a>
+        <a class="nav-link" href="{% url 'films:addReview' %}">Add Review</a>
+        {% if user.is_superuser %}
+            <a class="nav-link" href="{% url 'films:addFilm' %}">Add Film</a>
+            <a class="nav-link" href="{% url 'films:addDirector' %}">Add Director</a>
+        {% endif %}
+        <a class="nav-link usernav" href="{% url 'accounts:logout' %}">Log Out</a>
+        <a class="nav-link usernav" href="{% url 'accounts:profile' user.id %}">Profile</a>
+    {% else %}
+        <a class="nav-link usernav" href="{% url 'accounts:login' %}">Log In</a>
+        <a class="nav-link usernav" href="{% url 'accounts:signup' %}">Sign Up</a>
+    {% endif %}
+
+</nav>
