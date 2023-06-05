@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popular Gifs</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Popular Gifs</h2>
+  {% if gifs %}
+    <ul>
+      {% for gif in gifs %}
+        <li><a href="{% url 'gif' gif.id %}">{{ gif.title }}</a> - Likes: {{ gif.likes }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No popular gifs available.</p>
+  {% endif %}
+{% endblock %}
+
+
+</body>
+</html>

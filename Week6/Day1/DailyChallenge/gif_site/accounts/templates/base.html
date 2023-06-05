@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gifs</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="navbar-nav">
+            <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+            <a class="nav-link" href="{% url 'add-gif' %}">Add Gif</a>
+            <a class="nav-link" href="{% url 'add-category' %}">Add Category</a>
+            <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+            <a class="nav-link" href="{% url 'gifs' %}">Gifs</a>
+            <a class="nav-link" href="{% url 'popular-gifs' %}">Popular Gifs</a>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

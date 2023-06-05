@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gif</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Gif: {{ gif.title }}</h1>
+<img src="{{ gif.url }}" alt="{{ gif.title }}">
+<p>Likes: {{ gif.likes }}</p>
+
+<form action="{% url 'plus-likes' gif_id=gif.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Likes +1</button>
+</form>
+
+<form action="{% url 'minus-likes' gif_id=gif.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Likes -1</button>
+</form>
+
+{% endblock %}
+
+</body>
+</html>
