@@ -54,7 +54,11 @@
         </ul>
 <!--        only show delete option when user is superuser-->
         {% if user.is_superuser %}
-            <a href="{% url 'films:deleteFilm' film.id %}">Delete</a>
+<!--            <a href="{% url 'films:deleteFilm' film.id %}">Delete</a>-->
+          <form action="{% url 'films:deleteFilm' film.id %}" method="get">
+            {% csrf_token %}
+            <button type="submit" >Delete</button>
+          </form>
         {% endif %}
 
         {% if film in user.favorite_films.all %}

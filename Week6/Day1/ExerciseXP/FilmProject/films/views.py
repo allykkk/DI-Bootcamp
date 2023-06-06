@@ -51,7 +51,7 @@ class DirectorCreateView(UserPassesTestMixin, CreateView):
     success_url = reverse_lazy('films:homepage')
 
 
-class ReviewCreateView(CreateView):
+class ReviewCreateView(LoginRequiredMixin,CreateView):
     model = Review
     form_class = ReviewForm
     template_name = 'films/addReview.html'
