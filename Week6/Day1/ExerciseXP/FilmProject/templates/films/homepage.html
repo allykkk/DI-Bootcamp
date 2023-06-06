@@ -8,13 +8,27 @@
 
 {% extends 'partials/base.html' %}
 
+
 {% block content %}
+
+
+<!--        display message (for deletion) if there is any -->
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+
 {% if user.is_authenticated %}
   <h1>Homepage</h1>
   {% for film in films %}
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title">{{ film.title }}</h5>
+        <h5 class="card-title"><a href="{% url 'films:filmDetail' film.id %}">{{ film.title }}</a></h5>
         <p class="card-text">Release Date: {{ film.release_date }}</p>
         <p class="card-text">Created in Country: {{ film.created_in_country.name }}</p>
         <p class="card-text">Available in Countries:
@@ -38,6 +52,25 @@
               <li>{{ review.review_text }} - Rating: {{ review.rating }}</li>
             {% endfor %}
         </ul>
+<!--        only show delete option when user is superuser-->
+        {% if user.is_superuser %}
+            <a href="{% url 'films:deleteFilm' film.id %}">Delete</a>
+        {% endif %}
+
+        {% if film in user.favorite_films.all %}
+          <form action="{% url 'films:favoriteFilm' film.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">Remove from favorites</button>
+          </form>
+        {% else %}
+          <form action="{% url 'films:favoriteFilm' film.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Add to favorites</button>
+          </form>
+        {% endif %}
+
+
+
       </div>
     </div>
   {% endfor %}
