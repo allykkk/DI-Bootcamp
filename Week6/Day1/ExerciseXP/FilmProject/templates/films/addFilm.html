@@ -6,6 +6,10 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Submit</button>
+    {{ formset.management_form }}
+    {% for form in formset %}
+      {{ form.as_table }}
+    {% endfor %}
+    <input type="submit" value="Submit">
   </form>
 {% endblock %}

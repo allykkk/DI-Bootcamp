@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block headline %}<h1>My Uploaded Images</h1>{% endblock %}
+
+
+{% block content %}
+  {% if images %}
+<p>Upload Count: {{image_count}}</p>
+    <div class="row">
+      {% for image in images %}
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <img src="{{ image.image.url }}" class="card-img-top custom-img" alt="{{ image.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ image.title }}</h5>
+              <p class="card-text">{{ image.description }}</p>
+              <p class="card-text">Uploaded by: {{ image.user.username }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No images uploaded yet.</p>
+  {% endif %}
+{% endblock %}

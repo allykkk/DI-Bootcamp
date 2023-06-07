@@ -1,12 +1,13 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, DeleteView, View, DetailView
-# from django.views.generic.edit import CreateView
 from .models import Film, Director, Review
-from .forms import FilmForm, DirectorForm, ReviewForm
+from .forms import FilmForm, DirectorForm, ReviewForm, ProducerFormSet
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib import messages
+from django.forms import formset_factory
 
 
 class HomePageView(ListView):
@@ -23,6 +24,27 @@ class FilmCreateView(UserPassesTestMixin, CreateView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data['formset'] = ProducerFormSet(self.request.POST, prefix='producers')
+        else:
+            data['formset'] = ProducerFormSet(prefix='producers')
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+        if form.is_valid() and formset.is_valid():
+            self.object = form.save()
+            for form in formset:
+                producer = form.save(commit=False)
+                producer.film = self.object
+                producer.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 class FilmDeleteView(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
@@ -51,7 +73,7 @@ class DirectorCreateView(UserPassesTestMixin, CreateView):
     success_url = reverse_lazy('films:homepage')
 
 
-class ReviewCreateView(LoginRequiredMixin,CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = 'films/addReview.html'

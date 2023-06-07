@@ -1,7 +1,6 @@
 from django import forms
-from .models import Film, Director,Review
-
-
+from .models import Film, Director, Review, Producer
+from django.forms import formset_factory
 
 
 class FilmForm(forms.ModelForm):
@@ -17,6 +16,7 @@ class FilmForm(forms.ModelForm):
             'director': forms.SelectMultiple(),
         }
 
+
 class DirectorForm(forms.ModelForm):
     class Meta:
         model = Director
@@ -30,3 +30,12 @@ class ReviewForm(forms.ModelForm):
         # widgets = {
         #     'rating': forms.RadioSelect(attrs={'class': 'form-check-input'})
         # }
+
+
+class ProducerForm(forms.ModelForm):
+    class Meta:
+        model = Producer
+        fields = '__all__'
+
+
+ProducerFormSet = formset_factory(ProducerForm)
