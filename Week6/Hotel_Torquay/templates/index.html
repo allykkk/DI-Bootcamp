@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'index.css' %}">
+<!--	<link rel="stylesheet" type="text/css" media="screen and (max-width:  860px)" href="css/mobile.css">-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+	<title>Hotel Torquay</title>
+</head>
+<body>
+	<header>
+		<nav id="navbar">
+			<div class="container">
+				<h1 id="logo">HGF</h1>
+				<ul>
+					<li><a href="{% url 'index' %}" class="current">Home</a></li>
+					<li><a href="about.html">Sobre</a></li>
+					<li><a href="contact.html">Contato</a></li>
+				</ul>
+			</div>
+		</nav>
+		<section id="showcase">
+			<div class="container">
+				<h2><strong class="primary-text">Enjoy</strong> your stay</h2>
+				<h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita labore tempora, modi incidunt enim minima laboriosam fugit magni natus.</h3>
+				<a href="about.html" id="showcase-btn" class="btn">Make Reservation</a>
+			</div>
+		</section>
+	</header>
+	<main>
+		<section id="section-one">
+			<div id="img"></div>
+			<div id="the-history">
+				<h4><strong class="primary-text">About</strong> Our Hotel</h4>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus consequuntur numquam deserunt laudantium, sint eum minima eveniet, eaque, rem ipsam culpa veniam quaerat ipsum. Recusandae delectus, voluptates molestiae, earum dolores, corrupti id dolore sequi eveniet obcaecati sit officia!</p>
+				<a href="about.html" id="the-history-btn" class="btn">Check Reviews</a>
+			</div>
+		</section>
+		<section id="section-two">
+			<div class="section-two-box">
+				<i class="fas fa-hotel fa-3x"></i>
+				<h5>Great Location </h5>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut, omnis?</p>
+			</div>
+			<div class="section-two-box">
+				<i class="fas fa-utensils fa-3x"></i>
+				<h5>Free Meals</h5>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut, omnis?</p>
+			</div>
+			<div class="section-two-box">
+				<i class="fas fa-dumbbell fa-3x"></i>
+				<h5>Gym</h5>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ut, omnis?</p>
+			</div>
+		</section>
+	</main>
+	<footer>
+		<p>Hotel GF © 2020, All Rights Reserved</p>
+	</footer>
+</body>
+</html>

@@ -1,27 +1,31 @@
 from __future__ import absolute_import
 from braces.views import AnonymousRequiredMixin, FormValidMessageMixin, LoginRequiredMixin, MessageMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, FormView, RedirectView
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView
-from .forms import SignupForm, LoginForm, ImageForm, ProfileForm
-from .models import Image, Profile
+from .forms import SignupForm, LoginForm, BookingSearchForm
 
 
-# handle user Sign up
+# index page that shows hotel information
+def index(request):
+    return render(request, 'index.html')
+
+
+# visitors sign up
 class SignUpView(CreateView, AnonymousRequiredMixin, FormValidMessageMixin):
     form_class = SignupForm
     success_url = reverse_lazy('login')
-    template_name = 'registration/register.html'
+    template_name = 'visitors/register.html'
     form_valid_message = "Sign Up Success!"
 
 
-# handle user login
+# visitors log in
 class LoginView(FormView, AnonymousRequiredMixin, FormValidMessageMixin):
     form_class = LoginForm
     success_url = reverse_lazy('index')
-    template_name = 'registration/login.html'
+    template_name = 'visitors/login.html'
     form_valid_message = "Log In Success!"
 
     def form_valid(self, form):
@@ -36,7 +40,7 @@ class LoginView(FormView, AnonymousRequiredMixin, FormValidMessageMixin):
             return self.form_invalid(form)
 
 
-# handle user log out
+# visitors log out
 class LogOutView(RedirectView, LoginRequiredMixin, MessageMixin):
     url = reverse_lazy('index')
 
@@ -46,35 +50,18 @@ class LogOutView(RedirectView, LoginRequiredMixin, MessageMixin):
         return super(LogOutView, self).get(request, *args, **kwargs)
 
 
-# show all the uploaded pictures
-class ImageListView(ListView):
-    model = Image
-    template_name = 'image_share/index.css'
-    context_object_name = 'images'
-
-
-class UploadImageView(LoginRequiredMixin, CreateView):
-    model = Image
-    form_class = ImageForm
-    template_name = 'image_share/upload_image.html'
+class BookingSearchView(FormView):
+    template_name = 'visitors/search.html'
+    form_class = BookingSearchForm
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+        params = {
+            'group_size': form.cleaned_data['group_size'],
+            'check_in_date': form.cleaned_data['check_in_date'],
+            'check_out_date': form.cleaned_data['check_out_date']
+        }
+        return redirect(self.success_url, params)
 
 
-class UserImageView(LoginRequiredMixin, ListView):
-    model = Image
-    template_name = 'image_share/my_images.html'
-    context_object_name = 'images'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-        profile = Profile.objects.get_or_create(user=user)[0]
-        context['image_count'] = profile.image_count
-        return context
-
-    def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
