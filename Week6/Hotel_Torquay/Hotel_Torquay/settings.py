@@ -75,9 +75,12 @@ WSGI_APPLICATION = 'Hotel_Torquay.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Hotel_Torquay',
+        'USER': 'ally',
+        'PASSWORD': '123123',
+        'HOST': 'localhost',
+        'PORT': '5432', }
 }
 
 # Password validation
