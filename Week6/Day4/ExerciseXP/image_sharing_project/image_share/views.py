@@ -49,7 +49,7 @@ class LogOutView(RedirectView, LoginRequiredMixin, MessageMixin):
 # show all the uploaded pictures
 class ImageListView(ListView):
     model = Image
-    template_name = 'image_share/index.css'
+    template_name = 'image_share/index.html'
     context_object_name = 'images'
 
 
