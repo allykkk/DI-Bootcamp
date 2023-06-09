@@ -3,27 +3,32 @@
 {% block content %}
 
 
-    found {{ object_list|length }} results
+found {{ object_list|length }} results
 
-    <section class="p-4 w-100 card-columns">
+<section class="container-fluid mb-4">
+<div class="row justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-5">
     {% for room in object_list %}
-    <div class="card h-100">
-      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/04{{ room.room_type.id }}.webp" class="card-img-top"
-        alt="Skyscrapers" />
-      <div class="card-body">
-        <h5 class="card-title">{{ room.room_type.room_name }}</h5>
-        <p class="card-text">
-          This is a wider card with supporting text below as a natural lead-in to
-          additional content. This content is a little bit longer.
-        </p>
-      </div>
-      <div class="card-footer d-flex justify-content-between">
-          <div>Price: ${{ room.room_type.price_per_night }}</div>
-            <button type="button" class="btn btn-warning">Book Now!</button>
-      </div>
-    </div>
+        <div class="col mt-4">
+        <div class="card">
+            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/04{{ room.room_type.id }}.webp"
+                 class="card-img-top"
+                 alt="Skyscrapers"/>
+            <div class="card-body">
+                <h5 class="card-title">{{ room.room_type.room_name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-user-group fa-xs"></i> <small>~{{ room.room_type.capacity }} guests</small></h6>
+                <p class="card-text">
+                    {{ room.room_type.description }}
+                </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div class="align-self-center">Price: ${{ room.room_type.price_per_night }}</div>
+                <button type="button" class="btn btn-warning">Book Now!</button>
+            </div>
+        </div>
+        </div>
     {% endfor %}
-    </section>
+</div>
+</section>
 
 
 {% endblock %}

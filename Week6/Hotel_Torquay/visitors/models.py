@@ -7,7 +7,7 @@ class RoomType(models.Model):
     capacity = models.PositiveIntegerField()
     price_per_night = models.DecimalField(max_digits=5, decimal_places=2)
     room_name = models.CharField(max_length=25)
-
+    description = models.TextField()
 
 class Room(models.Model):
     room_number = models.CharField(max_length=10)

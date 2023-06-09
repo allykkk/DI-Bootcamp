@@ -78,4 +78,4 @@ class AvailableRoomView(ListView):
         object_list = object_list.exclude(booking__check_in_date__range=(check_in_date, check_out_date))
         object_list = object_list.exclude(booking__check_out_date__range=(check_in_date, check_out_date))
 
-        return object_list.distinct("room_type__room_name")
+        return object_list.distinct('room_type__capacity','room_type__room_name')
