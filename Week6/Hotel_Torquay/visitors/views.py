@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from datetime import datetime
 from braces.views import AnonymousRequiredMixin, FormValidMessageMixin, LoginRequiredMixin, MessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -6,8 +7,8 @@ from django.utils.http import urlencode
 from django.views.generic import CreateView, FormView, RedirectView
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView
-from .forms import SignupForm, LoginForm, BookingSearchForm
-from .models import Room
+from .forms import SignupForm, LoginForm, BookingSearchForm, BookingForm
+from .models import Room, Booking
 
 
 # index page that shows hotel information
@@ -66,16 +67,66 @@ class BookingSearchView(FormView):
         parameters = self.success_url + "?" + urlencode(params)
         return redirect(parameters)
 
+
 class AvailableRoomView(ListView):
     model = Room
     template_name = 'visitors/search_results.html'
 
     def get_queryset(self):
-        group_size = int(self.request.GET.get("group_size"))
-        check_in_date = self.request.GET.get("check_in_date")
-        check_out_date = self.request.GET.get("check_out_date")
-        object_list = Room.objects.exclude(room_type__capacity__lt=group_size)
-        object_list = object_list.exclude(booking__check_in_date__range=(check_in_date, check_out_date))
-        object_list = object_list.exclude(booking__check_out_date__range=(check_in_date, check_out_date))
+        self.group_size = int(self.request.GET.get("group_size"))
+        self.check_in_date = self.request.GET.get("check_in_date")
+        self.check_out_date = self.request.GET.get("check_out_date")
 
-        return object_list.distinct('room_type__capacity','room_type__room_name')
+        available_rooms_list = Room.get_free_rooms(self.check_in_date, self.check_out_date)
+        final_result = Room.filter_capacity(available_rooms_list, self.group_size)
+
+        return final_result.distinct('room_type__capacity', 'room_type__room_name')
+
+
+class MakeBookingView(FormView):
+    form_class = BookingForm
+    context_object_name = "booking"
+    model = Booking
+    template_name = "visitors/booking.html"
+    success_url = "index.html"
+    rendered = False
+
+    def post(self, *args, **kwargs):
+        return render(self.request, 'visitors/booking.html', self.post_page_context())
+
+    def post_page_context(self):
+        data = {}
+
+        # Fill context with received data
+        data['room_type'] = self.request.POST.get("room_type")
+        data['group_size'] = self.request.POST.get("group_size")
+        data['check_in_date'] = self.request.POST.get("check_in_date")
+        data['check_out_date'] = self.request.POST.get("check_out_date")
+
+
+        # Fill context with pretty strings for UI
+        data['check_in_fmt'] = datetime.strptime(data['check_in_date'], '%Y-%m-%d').strftime('%a, %b %d, %Y')
+        data['check_out_fmt'] = datetime.strptime(data['check_out_date'], '%Y-%m-%d').strftime('%a, %b %d, %Y')
+        data['nights_fmt'] = (datetime.strptime(data['check_out_date'], '%Y-%m-%d') - datetime.strptime(data['check_in_date'], '%Y-%m-%d')).days
+
+        # Find the user's room
+        available_rooms_list = Room.get_free_rooms(data['check_in_date'], data['check_out_date'])
+        filtered_capacity = Room.filter_capacity(available_rooms_list, data['group_size'])
+        final_results = Room.filter_type(filtered_capacity, data['room_type']).first()
+        data['selected_room'] = final_results
+
+        return data
+
+class ConfirmedBookingFormView(FormView):
+    form_class = BookingForm
+    context_object_name = "booking"
+    model = Booking
+    template_name = "visitors/booking.html"
+    success_url = "index.html"
+
+    def post(self, request):
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index.html')
+        return render(request, 'visitors/search.html', {'form': form})

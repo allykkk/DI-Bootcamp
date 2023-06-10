@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit
+from django.forms import HiddenInput
+
 from .models import Booking
 
 
@@ -44,3 +46,14 @@ class BookingSearchForm(forms.ModelForm):
             'check_out_date': forms.DateInput(
                 attrs={'type': 'date'}),
         }
+
+
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.keys():
+            self.fields[field].widget = HiddenInput()

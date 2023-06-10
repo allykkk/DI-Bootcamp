@@ -9,9 +9,27 @@ class RoomType(models.Model):
     room_name = models.CharField(max_length=25)
     description = models.TextField()
 
+
 class Room(models.Model):
     room_number = models.CharField(max_length=10)
     room_type = models.ForeignKey(RoomType, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.room_type.room_name} - {self.room_number}"
+
+    @staticmethod
+    def get_free_rooms(check_in_date, check_out_date):
+        available_rooms = Room.objects.exclude(booking__check_in_date__range=(check_in_date, check_out_date))
+        available_rooms = available_rooms.exclude(booking__check_out_date__range=(check_in_date, check_out_date))
+        return available_rooms
+
+    @staticmethod
+    def filter_capacity(query_set, group_size):
+        return query_set.exclude(room_type__capacity__lt=group_size)
+
+    @staticmethod
+    def filter_type(query_set, room_type):
+        return query_set.filter(room_type__id=room_type)
 
 
 class Booking(models.Model):

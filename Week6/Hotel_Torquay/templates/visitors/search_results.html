@@ -9,7 +9,8 @@ found {{ object_list|length }} results
 <div class="row justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
     {% for room in object_list %}
         <div class="col mt-4">
-        <div class="card">
+        <div class="card"><form action="{% url 'visitors:booking'%}" method="post">
+            {% csrf_token %}
             <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/04{{ room.room_type.id }}.webp"
                  class="card-img-top"
                  alt="Skyscrapers"/>
@@ -22,9 +23,14 @@ found {{ object_list|length }} results
             </div>
             <div class="card-footer d-flex justify-content-between">
                 <div class="align-self-center">Price: ${{ room.room_type.price_per_night }}</div>
-                <button type="button" class="btn btn-warning">Book Now!</button>
+
+                <input type="hidden" value="{{ room.room_type.id }}" name="room_type">
+                <input type="hidden" value="{{ view.group_size }}" name="group_size">
+                <input type="hidden" value="{{ view.check_in_date }}" name="check_in_date">
+                <input type="hidden" value="{{ view.check_out_date}}" name="check_out_date">
+                <input type="submit" class="btn btn-warning" role="button" value="Book Now!"/>
             </div>
-        </div>
+        </form></div>
         </div>
     {% endfor %}
 </div>
