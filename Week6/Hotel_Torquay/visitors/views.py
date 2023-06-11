@@ -107,12 +107,14 @@ class MakeBookingView(FormView):
         # Fill context with pretty strings for UI
         data['check_in_fmt'] = datetime.strptime(data['check_in_date'], '%Y-%m-%d').strftime('%a, %b %d, %Y')
         data['check_out_fmt'] = datetime.strptime(data['check_out_date'], '%Y-%m-%d').strftime('%a, %b %d, %Y')
-        data['nights_fmt'] = (datetime.strptime(data['check_out_date'], '%Y-%m-%d') - datetime.strptime(data['check_in_date'], '%Y-%m-%d')).days
+        total_length=(datetime.strptime(data['check_out_date'], '%Y-%m-%d') - datetime.strptime(data['check_in_date'], '%Y-%m-%d')).days
+        data['nights_fmt'] = total_length
 
         # Find the user's room
         available_rooms_list = Room.get_free_rooms(data['check_in_date'], data['check_out_date'])
         filtered_capacity = Room.filter_capacity(available_rooms_list, data['group_size'])
         final_results = Room.filter_type(filtered_capacity, data['room_type']).first()
+        data['price']=total_length*(final_results.room_type.price_per_night)
         data['selected_room'] = final_results
 
         return data

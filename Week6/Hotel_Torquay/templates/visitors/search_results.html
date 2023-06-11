@@ -23,7 +23,6 @@ found {{ object_list|length }} results
             </div>
             <div class="card-footer d-flex justify-content-between">
                 <div class="align-self-center">Price: ${{ room.room_type.price_per_night }}</div>
-
                 <input type="hidden" value="{{ room.room_type.id }}" name="room_type">
                 <input type="hidden" value="{{ view.group_size }}" name="group_size">
                 <input type="hidden" value="{{ view.check_in_date }}" name="check_in_date">
