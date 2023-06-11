@@ -54,7 +54,7 @@ class LogOutView(RedirectView, LoginRequiredMixin, MessageMixin):
 
 
 class BookingSearchView(FormView):
-    template_name = 'visitors/search.html'
+    template_name = 'new-ui/search.html'
     form_class = BookingSearchForm
     success_url = reverse_lazy('visitors:result')
 
