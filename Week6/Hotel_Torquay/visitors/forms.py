@@ -57,3 +57,13 @@ class BookingForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.keys():
             self.fields[field].widget = HiddenInput()
+
+    def is_valid(self):
+        if not super().is_valid(): return False
+        # If it actually IS valid, check that it's not in DB
+        current_booking = self.save(commit=False)
+        similar_bookings_count = Booking.objects.filter(check_in_date=current_booking.check_in_date,
+                                                        check_out_date=current_booking.check_out_date,
+                                                        room=current_booking.room).count()
+        print(f"Found {similar_bookings_count} similar bookings")
+        return similar_bookings_count == 0

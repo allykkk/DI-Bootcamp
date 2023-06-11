@@ -85,7 +85,6 @@ class AvailableRoomView(ListView):
 
 class MakeBookingView(FormView):
     form_class = BookingForm
-    context_object_name = "booking"
     model = Booking
     template_name = "visitors/booking.html"
     success_url = "index.html"
@@ -103,32 +102,36 @@ class MakeBookingView(FormView):
         data['check_in_date'] = self.request.POST.get("check_in_date")
         data['check_out_date'] = self.request.POST.get("check_out_date")
 
-
         # Fill context with pretty strings for UI
         data['check_in_fmt'] = datetime.strptime(data['check_in_date'], '%Y-%m-%d').strftime('%a, %b %d, %Y')
         data['check_out_fmt'] = datetime.strptime(data['check_out_date'], '%Y-%m-%d').strftime('%a, %b %d, %Y')
-        total_length=(datetime.strptime(data['check_out_date'], '%Y-%m-%d') - datetime.strptime(data['check_in_date'], '%Y-%m-%d')).days
+        total_length = (datetime.strptime(data['check_out_date'], '%Y-%m-%d') - datetime.strptime(data['check_in_date'],
+                                                                                                  '%Y-%m-%d')).days
         data['nights_fmt'] = total_length
 
         # Find the user's room
         available_rooms_list = Room.get_free_rooms(data['check_in_date'], data['check_out_date'])
         filtered_capacity = Room.filter_capacity(available_rooms_list, data['group_size'])
         final_results = Room.filter_type(filtered_capacity, data['room_type']).first()
-        data['price']=total_length*(final_results.room_type.price_per_night)
+        data['price'] = total_length * (final_results.room_type.price_per_night)
         data['selected_room'] = final_results
+        data['user'] = self.request.user.id
 
         return data
+
 
 class ConfirmedBookingFormView(FormView):
     form_class = BookingForm
     context_object_name = "booking"
     model = Booking
-    template_name = "visitors/booking.html"
-    success_url = "index.html"
+    template_name = "visitors/booking_success.html"
 
     def post(self, request):
         form = BookingForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('index.html')
-        return render(request, 'visitors/search.html', {'form': form})
+            data = form.save()
+            context = {
+                'booking_id': data.id
+            }
+            return render(request, 'visitors/booking_success.html', context)
+        return render(request, 'index.html')
