@@ -37,15 +37,23 @@ class LoginForm(AuthenticationForm):
 
 
 class BookingSearchForm(forms.ModelForm):
+
+
     class Meta:
+        pretty_names = {
+            "check_in_date": "Arrival date",
+            "check_out_date": "Departure date",
+            "group_size": "Number of people"
+        }
         model = Booking
-        fields = ['group_size', 'check_in_date', 'check_out_date']
+        fields = ['check_in_date', 'check_out_date', 'group_size']
         widgets = {
             'check_in_date': forms.DateInput(
                 attrs={'type': 'date'}),
             'check_out_date': forms.DateInput(
                 attrs={'type': 'date'}),
         }
+        labels = pretty_names
 
 
 class BookingForm(forms.ModelForm):
