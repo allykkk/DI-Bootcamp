@@ -1,0 +1,81 @@
+# Example 1
+person1 = Person.objects.create(
+    name='John Doe',
+    email='johndoe@example.com',
+    phone_number='+1234567890',
+    address='123 Main St, City, Country'
+)
+
+# Example 2
+person2 = Person.objects.create(
+    name='Jane Smith',
+    email='janesmith@example.com',
+    phone_number='+9876543210',
+    address='456 Elm St, City, Country'
+)
+
+# Example 3
+person3 = Person.objects.create(
+    name='David Johnson',
+    email='davidjohnson@example.com',
+    phone_number='+5555555555',
+    address='789 Oak St, City, Country'
+)
+
+# Example 4
+person4 = Person.objects.create(
+    name='Emily Brown',
+    email='emilybrown@example.com',
+    phone_number='+1111111111',
+    address='789 Pine St, City, Country'
+)
+
+# Example 5
+person5 = Person.objects.create(
+    name='Michael Wilson',
+    email='michaelwilson@example.com',
+    phone_number='+2222222222',
+    address='321 Oak St, City, Country'
+)
+
+# Example 6
+person6 = Person.objects.create(
+    name='Sophia Davis',
+    email='sophiadavis@example.com',
+    phone_number='+3333333333',
+    address='987 Elm St, City, Country'
+)
+
+# Example 7
+person7 = Person.objects.create(
+    name='Oliver Garcia',
+    email='olivergarcia@example.com',
+    phone_number='+4444444444',
+    address='654 Main St, City, Country'
+)
+
+# Example 8
+person8 = Person.objects.create(
+    name='Emma Clark',
+    email='emmaclark@example.com',
+    phone_number='+5555555557',
+    address='789 Oak St, City, Country'
+)
+
+# Example 9
+person9 = Person.objects.create(
+    name='William Martinez',
+    email='williammartinez@example.com',
+    phone_number='+6666666666',
+    address='321 Elm St, City, Country'
+)
+
+# Example 10
+person10 = Person.objects.create(
+    name='Mia Anderson',
+    email='miaanderson@example.com',
+    phone_number='+7777777777',
+    address='456 Main St, City, Country'
+)
+
+

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block headline %}<h1>Login</h1>{% endblock %}
+
+{% block content %}
+
+    <div class="d-flex flex-column justify-content-around">
+    <section class="d-flex">
+        <div class="card border-dark mb-3 ml-5 " style="max-width: 18rem;">
+            <div class="card-header">Your booking details</div>
+            <div class="card-body text-dark">
+                <div class="border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p>Check-in</p>
+                            <div class="border-right">
+                                <p><b>{{ check_in_fmt }}</b></p>
+                                <p>From 2:00 PM </p>
+                            </div>
+                        </div>
+                        <div class="ml-3">
+                            <p>Check-out</p>
+                            <div>
+                                <p><b>{{ check_out_fmt }}</b></p>
+                                <p> Until 12:00 PM </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Total length of stay:</p>
+                        <p><b>{{ nights_fmt }} nights</b></p>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <b>You Selected: </b>
+                    <p>{{ selected_room.room_type.room_name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column flex-grow-1 ml-4" style="margin: 0 48px">
+            <div class="card border-dark mb-3 ">
+                <div class="card-header">Confirmation</div>
+                <div class="d-flex justify-content-start">
+                    <div class="card-body text-dark" style="max-width: 18rem;">
+
+                        <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top" alt="Skyscrapers"/>
+                    </div>
+                    <div class="p-4">
+                        <p><i <i class="fa-solid fa-hotel"></i> &nbsp The Torquay Hotel</p>
+                        <p><i class="fa-sharp fa-solid fa-location-dot"></i>  &nbsp	3001 Carlsbad Blvd #B, Carlsbad, California, United States </p>
+                        <p><i class="fa-solid fa-mug-saucer"></i> &nbsp Breakfast included</p>
+                        <p><i class="fa-solid fa-address-book"></i> &nbsp Guest Room: Room 1 Adults: {{ selected_room.room_type.capacity }}</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card border-dark mb-3 " >
+                <div class="card-header">Your price summary</div>
+                <div class="card-body text-dark">
+                    <div class="d-flex justify-content-between">
+                        <p>Total</p>
+                        <p>$ {{price}}</p>
+                    </div>
+                    <div class="d-flex justify-content-end">(Tax not included)</div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+        <div class="d-flex justify-content-center">
+            <form method="post" action={% url 'visitors:submit_check' %}>
+                <p><input type="checkbox">
+                Regarding reservations, I agree to the User Agreement and launch Privacy policy and Coupon Terms and Conditions</p>
+                {% csrf_token %}
+
+                <input type="hidden" name="user" value="{{ user }}"/>
+                <input type="hidden" name="room" value="{{ selected_room.id}}"/>
+                <input type="hidden" name="group_size" value="{{ group_size }}"/>
+                <input type="hidden" name="check_in_date" value="{{ check_in_date }}"/>
+                <input type="hidden" name="check_out_date" value="{{ check_out_date }}"/>
+                <div  class="d-flex justify-content-center"><input type="submit" value="Confirm Reservation details"></div>
+            </form>
+        </div>
+
+
+    </div>
+{% endblock %}

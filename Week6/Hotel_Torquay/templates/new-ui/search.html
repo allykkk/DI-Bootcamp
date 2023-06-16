@@ -1,0 +1,48 @@
+{% include "new-ui/head.html" with title="Home Page" %}
+<body>
+
+{% include "new-ui/navbar.html" %}
+{% load static %}
+<div class="overlay-div">
+
+    <div>
+        {% block content %}
+            <form action='' method="POST" class="booking-form">
+                <div class="container overflow-hidden">
+                    <div class="row gx-5">
+                        {% csrf_token %}
+                        {% for field in form %}
+
+
+
+                            <div class="col">
+                                <div class="p-3 border bg-light">
+                                    {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}</div>
+                            </div>
+
+                        {% endfor %}
+                        <input type="submit" value="search">
+                    </div>
+                </div>
+            </form>
+        {% endblock %}
+    </div>
+
+    <div class="container-fluid main-page-grid">
+        <div class="row">
+            <div class="col-5" style="border-inline-end: #B7AE90 2px solid">Column1</div>
+            <div class="col-7" style="padding: 0">
+                <img id="welcome-img"
+                     src="{% static 'new-ui/comfort-triple-room.jpg' %}">
+            </div>
+            <div class="w-100"></div>
+            <div class="col-5" style="border-inline-end: #B7AE90 2px solid">Column3</div>
+            <div class="col-7">Column4</div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>

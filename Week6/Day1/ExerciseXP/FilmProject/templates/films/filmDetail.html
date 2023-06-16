@@ -1,0 +1,40 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <p>Release Date: {{ object.release_date }}</p>
+    <p>Created in Country: {{ object.created_in_country.name }}</p>
+    <p>Available in Countries:
+    {% for country in object.available_in_countries.all %}
+      {{ country.name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+    <p>Category:
+    {% for category in object.category.all %}
+      {{ category.name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+    <p>Director:
+    {% for director in object.director.all %}
+      {{ director.first_name }} {{ director.last_name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+    <p>Producer:
+    {% for producer in object.producers.all %}
+      {{ producer.first_name }} {{ producer.last_name }}{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    </p>
+
+
+    {% if film in user.favorite_films.all %}
+          <form action="{% url 'films:favoriteFilm' film.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">Remove from favorites</button>
+          </form>
+    {% else %}
+          <form action="{% url 'films:favoriteFilm' film.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Add to favorites</button>
+          </form>
+    {% endif %}
+{% endblock %}
