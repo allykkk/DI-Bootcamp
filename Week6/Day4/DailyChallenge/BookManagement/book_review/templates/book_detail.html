@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+<p><b>Author:</b> {{ object.author }}</p>
+<p><b>Description:</b> {{ object.description }}</p>
+<p><b>Published date:</b> {{ object.published_date }}</p>
+<p><b>Page count:</b> {{ object.page_count }}</p>
+<p><b>categories:</b> {{ object.categories }}</p>
+<p><b>Thumbnail URL:</b> {{ object.thumbnail_url }}</p>
+<hr>
+{% if object.bookreview_set %}
+    <h3>Review</h3>
+    <h5>Average Rating: {{ object.average_rating }} | Total Count: {{ object.review_count }}</h5>
+    <ol>
+        {% for review in object.bookreview_set.all %}
+            <li>
+            <p>User: {{ review.user }} | Rating: {{ review.rating }} | Content: {{ review.review_text }}</p>
+            </li>
+        {% endfor %}
+        </ol>
+{% endif %}
+
+{% endblock content %}
