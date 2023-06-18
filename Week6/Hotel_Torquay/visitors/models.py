@@ -38,3 +38,16 @@ class Booking(models.Model):
     group_size = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
     check_in_date = models.DateField()
     check_out_date = models.DateField()
+
+
+class UserRequest(models.Model):
+    # visitors can send requests as well, but if we have user info, we want to link to the user
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='requests')
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    # store the time when request is made, so we can deal with the requests in time order for future use
+    request_time=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name}"

@@ -1,7 +1,7 @@
 {% include "new-ui/head.html" with title="Home Page" %}
 <body>
 
-{% include "new-ui/navbar.html" %}
+
 {% load static %}
 <div class="overlay-div">
 
@@ -11,18 +11,23 @@
                 <div class="container overflow-hidden">
                     <div class="row gx-5">
                         {% csrf_token %}
-                        {% for field in form %}
 
 
+                        <div class="col">
 
-                            <div class="col">
-                                <div class="p-3 border bg-light">
-                                    {{ field.errors }}
-                                {{ field.label_tag }} {{ field }}</div>
+                            <div class="row">
+                                {% for field in form %}
+                                    <div class="col"><b>{{ field.label_tag }}</b>{{ field.errors }}</div>{% endfor %}
+                                <div class="w-100"></div>
+                                {% for field in form %}
+                                    <div class="col">{{ field }}</div>{% endfor %}
                             </div>
 
-                        {% endfor %}
-                        <input type="submit" value="search">
+
+                        </div>
+
+
+                        <input type="submit" class="btn btn-primary btn-accent" value="BOOK A STAY">
                     </div>
                 </div>
             </form>
@@ -31,14 +36,43 @@
 
     <div class="container-fluid main-page-grid">
         <div class="row">
-            <div class="col-5" style="border-inline-end: #B7AE90 2px solid">Column1</div>
+            <div class="col-5" style="border-inline-end: #B7AE90 2px solid; padding: 0;">
+
+                {% include "new-ui/navbar-left.html" %}
+
+                <h1 style="padding: 2rem 2rem 0 2rem;">
+                    <p><i>Memorable</i></p>
+                    <p>Hotels for</p>
+                    <p>moments <i>Rich</i></p>
+                    <p>in emotions</p>
+                </h1>
+
+                <h3 style="padding: 0 2rem 0 2rem;">
+                    Book now and get the best prices
+                </h3>
+
+
+            </div>
             <div class="col-7" style="padding: 0">
                 <img id="welcome-img"
                      src="{% static 'new-ui/comfort-triple-room.jpg' %}">
             </div>
             <div class="w-100"></div>
-            <div class="col-5" style="border-inline-end: #B7AE90 2px solid">Column3</div>
-            <div class="col-7">Column4</div>
+            <div class="col-5" style="border-inline-end: #B7AE90 0.1em solid;border-top: #B7AE90 0.1em solid;">
+                <div style="padding: 40px 20px;">
+                    <h2>
+                        <p>Here, local talents</p>
+                        <p>come together.</p>
+                    </h2>
+                </div>
+            </div>
+            <div class="col-7 text-right" style="border-top: #B7AE90 0.1em solid;">
+                <div style="padding: 40px 20px;">
+                    <p>We let ourselves be <b>inspired by the rich history</b> as well </p>
+                    <p>as by contemporary artists of the city. For in the 21st century </p>
+                    <p>the city has so much more to offer than just busy streets and noise</p>
+                </div>
+            </div>
         </div>
     </div>
 

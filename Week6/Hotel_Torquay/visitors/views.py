@@ -1,14 +1,32 @@
 from __future__ import absolute_import
 from datetime import datetime
 from braces.views import AnonymousRequiredMixin, FormValidMessageMixin, LoginRequiredMixin, MessageMixin
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.http import urlencode
 from django.views.generic import CreateView, FormView, RedirectView
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import ListView
-from .forms import SignupForm, LoginForm, BookingSearchForm, BookingForm
+from .forms import SignupForm, LoginForm, BookingSearchForm, BookingForm, UserRequestForm
 from .models import Room, Booking
+
+# Mixin for page title
+class PageTitleViewMixin:
+    title = ""
+
+    def get_title(self):
+        """
+        Return the class title attr by default,
+        but you can override this method to further customize
+        """
+        return self.title
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = self.get_title()
+        return context
+
 
 
 # index page that shows hotel information
@@ -53,10 +71,11 @@ class LogOutView(RedirectView, LoginRequiredMixin, MessageMixin):
         return super(LogOutView, self).get(request, *args, **kwargs)
 
 
-class BookingSearchView(FormView):
+class BookingSearchView(PageTitleViewMixin, FormView):
     template_name = 'new-ui/search.html'
     form_class = BookingSearchForm
     success_url = reverse_lazy('visitors:result')
+    title = "home"
 
     def form_valid(self, form):
         params = {
@@ -135,3 +154,15 @@ class ConfirmedBookingFormView(FormView):
             }
             return render(request, 'visitors/booking_success.html', context)
         return render(request, 'index.html')
+
+
+class UserRequestView(CreateView):
+    template_name = 'visitors/user_request.html'
+    form_class = UserRequestForm
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        if self.request.user:
+            instance.user = self.request.user
+        instance.save()
+        return HttpResponse("<h3>Request sent.</h3>")

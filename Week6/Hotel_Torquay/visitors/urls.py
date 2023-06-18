@@ -1,5 +1,6 @@
 from .views import (SignUpView, LoginView, LogOutView,
-                    BookingSearchView, AvailableRoomView, MakeBookingView, ConfirmedBookingFormView)
+                    BookingSearchView, AvailableRoomView, MakeBookingView,
+                    ConfirmedBookingFormView,UserRequestView)
 from django.urls import path
 
 app_name = 'visitors'
@@ -12,4 +13,5 @@ urlpatterns = [
     path('results/', AvailableRoomView.as_view(), name='result'),
     path('booking/', MakeBookingView.as_view(), name='booking'),
     path('submit_check/', ConfirmedBookingFormView.as_view(), name='submit_check'),
+    path('request/',UserRequestView.as_view(),name='request')
 ]

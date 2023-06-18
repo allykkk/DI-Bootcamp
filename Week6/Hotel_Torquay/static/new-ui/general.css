@@ -1,0 +1,35 @@
+.main-page-grid h1 p i {
+    font-family: 'WindSong', cursive;
+    color: #487254;
+}
+.main-page-grid p {
+    margin-bottom: 0!important;
+    font-family: 'Domine', serif;
+}
+
+.main-page-grid h1 {
+    font-size: xxx-large;
+}
+.main-page-grid h2 {
+    font-size: xx-large;
+    font-family: 'Domine', serif;
+}
+.main-page-grid h3 {
+    font-size: x-large;
+    font-family: 'Domine', serif;
+}
+.btn-accent {
+    color: #fff;
+    background-color: #487254;
+    border-color: #487254;
+    border-radius: 0;
+}
+
+.btn-accent:hover {
+        background-color: #3d5e46;
+    border-color: #3d5e46;
+}
+
+.booking-form b {
+    color: #487254;
+}

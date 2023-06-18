@@ -4,7 +4,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit
 from django.forms import HiddenInput
 
-from .models import Booking
+from .models import Booking, UserRequest
 
 
 class SignupForm(UserCreationForm):
@@ -37,8 +37,6 @@ class LoginForm(AuthenticationForm):
 
 
 class BookingSearchForm(forms.ModelForm):
-
-
     class Meta:
         pretty_names = {
             "check_in_date": "Arrival date",
@@ -54,6 +52,10 @@ class BookingSearchForm(forms.ModelForm):
                 attrs={'type': 'date'}),
         }
         labels = pretty_names
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.label_suffix = ""  # Removes : as label suffix
 
 
 class BookingForm(forms.ModelForm):
@@ -75,3 +77,9 @@ class BookingForm(forms.ModelForm):
                                                         room=current_booking.room).count()
         print(f"Found {similar_bookings_count} similar bookings")
         return similar_bookings_count == 0
+
+
+class UserRequestForm(forms.ModelForm):
+    class Meta:
+        model = UserRequest
+        exclude = ['user']
