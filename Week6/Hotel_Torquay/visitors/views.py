@@ -84,12 +84,13 @@ class BookingSearchView(PageTitleViewMixin, FormView):
             'check_out_date': form.cleaned_data['check_out_date']
         }
         parameters = self.success_url + "?" + urlencode(params)
+        # the problem is is always redirect with params
         return redirect(parameters)
 
 
 class AvailableRoomView(ListView):
     model = Room
-    template_name = 'visitors/search_results.html'
+    template_name = 'new-ui/search_results.html'
 
     def get_queryset(self):
         self.group_size = int(self.request.GET.get("group_size"))
@@ -153,7 +154,7 @@ class ConfirmedBookingFormView(FormView):
                 'booking_id': data.id
             }
             return render(request, 'visitors/booking_success.html', context)
-        return render(request, 'index.html')
+        return HttpResponse("Booking Failed: " + str(form.errors))
 
 
 class UserRequestView(CreateView):

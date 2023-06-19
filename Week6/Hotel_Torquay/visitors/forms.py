@@ -78,6 +78,12 @@ class BookingForm(forms.ModelForm):
         print(f"Found {similar_bookings_count} similar bookings")
         return similar_bookings_count == 0
 
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     check_in_date = cleaned_data.get("check_in_date")
+    #     check_out_date = cleaned_data.get("check_out_date")
+    #     if check_out_date < check_in_date:
+    #         raise forms.ValidationError("End date should be greater than start date.")
 
 class UserRequestForm(forms.ModelForm):
     class Meta:

@@ -1,6 +1,9 @@
-{% extends 'base.html' %}
+{% include "new-ui/head.html" with title="Search Result" %}
+{% include "new-ui/navbar-left.html" %}
 
-{% block title %}Register | {{ block.super }}{% endblock %}
+{% load static %}
+
+{#{% block title %}Register | {{ block.super }}{% endblock %}#}
 
 {% block headline %}<h1>Register</h1>{% endblock %}
 
