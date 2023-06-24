@@ -1,0 +1,76 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    background-color: rgb(60, 200, 60);
+    /* padding: 5px; */
+}
+
+.navbar p {
+    font-family: 'SEGA LOGO FONT', sans-serif;
+    font-size: 2rem;
+    padding: 1.3rem;
+    margin: 0;
+}
+
+#search-box {
+    display: flex;
+    align-items: center;
+    width: 42rem;
+    margin-left: 1.5rem;
+}
+
+.navbar input {
+    height: 2rem;
+    width: 42rem;
+    background-color: rgb(192, 196, 192);
+    font-family: 'Pathway Extreme', sans-serif;
+    padding-left: 0.5rem;
+    border-color: rgb(0, 128, 255);
+    border-style: 0.5px;
+}
+
+
+#Container {
+    background-image: url(circuit-pattern.png);
+    background-color: blueviolet;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3rem 7rem;
+}
+
+.card {
+    width: 30%;
+    background-color: rgb(11, 207, 187);
+    background-image: url(card-pattern.png);
+    border-radius: 5%;
+    margin: 1rem;
+}
+
+/* .card > *{
+    padding: 1rem;
+} */
+
+img {
+    background-color: rgb(24, 48, 83);
+    border-radius: 50%;
+    margin: 1.5rem 2.5rem;
+}
+
+#Container p {
+    padding-left: 1.3rem;
+    font-family: 'PT Serif', serif;
+    margin: 0.5rem 0 3rem 0;
+
+}
+
+#Container .robot-name {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: bolder;
+    font-family: 'Pathway Extreme', sans-serif;
+}
