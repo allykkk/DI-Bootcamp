@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
- <head>
+
+<head>
   <meta charset="utf-8" />
   <title>Challenge: Mad Libs</title>
   <style>
-    form >*{
-        margin: 8px;
+    form>* {
+      margin: 8px;
     }
   </style>
- </head>
- <body>
+</head>
 
-    <h1>Mad Libs</h1>
+<body>
 
-    <form id="libform">
-        <label for="noun">Noun:</label><input type="text" id="noun"><br>
-        <label for="adjective">Adjective:</label><input type="text" id="adjective"><br>
-        <label for="person">Someone's Name:</label><input type="text" id="person"><br>
-        <label for="verb">Verb:</label><input type="text" id="verb"><br>
-        <label for="place">A place:</label><input type="text" id="place"><br>
-        <button id="lib-button">Lib it!</button>
-    </form>
+  <h1>Mad Libs</h1>
 
-    <p>Generated story: 
-    <span id="story"></span>
-    </p>
+  <form id="libform">
+    <label for="noun">Noun:</label><input type="text" id="noun"><br>
+    <label for="adjective">Adjective:</label><input type="text" id="adjective"><br>
+    <label for="person">Someone's Name:</label><input type="text" id="person"><br>
+    <label for="verb">Verb:</label><input type="text" id="verb"><br>
+    <label for="place">A place:</label><input type="text" id="place"><br>
+    <button id="lib-button">Lib it!</button>
+    <button id="shuffle-button">Shuffle</button>
+  </form>
 
-    <script src="script.js"></script>
+  <p>Generated story:
+  <p><span id="story"></span></p>
+  </p>
 
- </body>
+  <script src="script.js"></script>
+
+</body>
+
 </html>
