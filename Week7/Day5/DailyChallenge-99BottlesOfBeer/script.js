@@ -28,7 +28,7 @@ function writeFirstLine(takenNum) {
 function writeSecondLine(leftBottle) {
     const secondLine = document.createElement('p');
     if (leftBottle === 0)
-        secondLine.textContent = `no bottle of beer on the wall`   // not working 
+        secondLine.textContent = `no bottle of beer on the wall`
     else if (leftBottle === 1)
         secondLine.textContent = `-> we have now 1 bottle`
     else
