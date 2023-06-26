@@ -41,7 +41,7 @@ function Story() {
 }
 
 document.getElementById("libform").addEventListener("submit", (event) => {
-    event.preventDefault();
+    event.preventDefault(); //avoid from refreshing 
     const storyInstance = new Story();
     if (storyInstance.isNotEmpty())
         document.getElementById("story").textContent = storyInstance.madeStory;
