@@ -3,6 +3,7 @@ body {
     font-family: 'Helvetica Neue';
     color: white;
     text-align: center;
+    background-image: url("https://i.giphy.com/media/TxVVB6PfWMjE4/200.webp");
 }
 
 #title p {
@@ -45,16 +46,15 @@ body {
     border-radius: 15px;
 }
 
-#information p{
+#information p {
     font-weight: bold;
     font-size: 20px;
-    margin:23px;
-    font-family:'Agdasima', sans-serif;
+    margin: 23px;
+    font-family: 'Agdasima', sans-serif;
 }
 
 
-i{
+i {
     margin: 2.5rem;
     font-size: 4.5rem;
 }
-
