@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .img-div {
+            margin: 20px 20px 20px 0;
+        }
+
+        img {
+            height: 300px;
+            width: 300px;
+        }
+
+        #gifContainer {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="gifForm">
+        <input type="text" id="searchInput" placeholder="Enter a category">
+        <button>Search</button>
+        <button type="button" id="deleteAllBtn">Delete All</button>
+    </form>
+
+    <div id="gifContainer"></div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
