@@ -3,10 +3,12 @@ body{
     margin: 0;
     padding: 0;
     color: white;
+    background-image: url(https://static1.bigstockphoto.com/4/7/4/large1500/474388749.jpg);
 }
 
 .container{
-    background-color: rgb(164, 140, 164);
+    background-color: rgb(164, 140, 164,0.6);
+    border-radius: 10px;
     height: 80vh;
     width: 60vw;
     display: flex;
@@ -27,14 +29,14 @@ body{
 }
 
 input{
-    background-color: rgb(135, 105, 135);
+    background-color: rgb(135, 105, 135,0.6);
     width: 70%;
     color: white;
 
 }
 
 button {
-    background-color: rgb(135, 105, 135);
+    background-color: rgb(135, 105, 135,0.6);
     border: white solid 2px;
     border-radius: 5px;
     width: 23%;
@@ -45,13 +47,14 @@ select{
     width: 45%;
     height: 4%;
     margin: 0 auto;
-    background-color:rgb(135, 105, 135);
+    background-color:rgb(135, 105, 135,0.6);
     color: white;
 }
 
 
 #result-container{
     border: solid gray 1px;
+    background-color:rgb(135, 105, 135,0.6);
     width: 35%;
     height: 4%;
     margin: 0 auto;
@@ -59,4 +62,12 @@ select{
 
 #result-container p{
     margin: 0 auto;
+}
+
+.title{
+    font-size: 25px;
+}
+
+h1{
+    font-size: 50px;
 }
