@@ -30,6 +30,8 @@ const db = knex({
 //     console.error('Error creating "users" table:', error);
 //   });
 
+app.use(express.static('public'));
+
 
 app.post('/register', async (req, res) => {
     const { firstName, lastName, email, username, password } = req.body;
@@ -39,6 +41,7 @@ app.post('/register', async (req, res) => {
         await db('users').insert({ firstName, lastName, email, username, password });
 
         res.status(200).json({ message: 'User registered successfully' });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal server error' });
@@ -57,6 +60,7 @@ app.post('/login', async (req, res) => {
 
         if (user) {
             res.status(200).json({ message: 'Login successful', user });
+            // res.send(`OK Hello Your username is ${username}`)
         } else {
             res.status(401).json({ error: 'Invalid credentials' });
         }

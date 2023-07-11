@@ -37,7 +37,8 @@
 
         <label for="loginPassword">Password:</label>
         <input type="password" id="loginPassword" required />
-        <button type="button" id="loginBtn" disabled>Log In</button>
+        <button type="submit" id="loginBtn" disabled>Log In</button>
+        <div id="login-message"></div>
       </form>
     </div>
 
@@ -59,32 +60,10 @@
         <label for="password">Password:</label>
         <input type="password" id="password" required />
         <button type="submit" id="registerBtn" disabled>Register</button>
+        <div id="register-message"></div>
       </form>
     </div>
 
     <script src="script.js"></script>
-    <!-- <script>
-      const loginForm = document.getElementById("login-form");
-      const loginBtn = document.getElementById("loginBtn");
-
-      // Function to check if any input field is empty
-      function checkInputs() {
-        let areInputsEmpty = false;
-
-        // Loop through each input within the form
-        for (const input of loginForm.elements) {
-          if (input.tagName === "INPUT" && input.value.trim() === "") {
-            areInputsEmpty = true;
-            break;
-          }
-        }
-
-        // Disable the login button if any input is empty
-        loginBtn.disabled = areInputsEmpty;
-      }
-
-      // Listen for changes in the form inputs
-      loginForm.addEventListener("input", checkInputs);
-    </script> -->
   </body>
 </html>
