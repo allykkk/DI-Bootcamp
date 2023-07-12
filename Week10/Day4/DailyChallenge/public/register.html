@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="register-div">
+        <p>Register:</p>
+        <form id="register-form">
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" id="firstName" required />
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" id="lastName" required />
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required />
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required />
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+            <button type="submit" id="registerBtn" disabled>Register</button>
+            <div id="register-message"></div>
+        </form>
+    </div>
+
+    <script>
+        function addMessage(formType, message) {
+            const messageDiv = document.getElementById(`${formType}-message`)
+            messageDiv.innerHTML = ''
+            const messageP = document.createElement('p')
+            messageP.innerText = message
+            messageDiv.appendChild(messageP)
+        }
+
+        function checkInputs(form, button) {
+            let areInputsEmpty = false;
+
+            // Loop through each input within the form
+            for (const input of form.elements) {
+                if (input.tagName === 'INPUT' && input.value.trim() === '') {
+                    areInputsEmpty = true;
+                    break;
+                }
+            }
+
+            // Disable the login button if any input is empty
+            button.disabled = areInputsEmpty;
+        }
+
+        async function formDataHandler(event, form, route) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const requestBody = {};
+
+            formData.forEach(function (value, key) {
+                requestBody[key] = value;
+            });
+            try {
+                const response = await fetch(`/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                // Handle the response from the server
+                const data = await response.json();
+                if (data.message === 'register') {
+                    message = 'Hello Your account is now created!'
+                } else if (data.message === 'error1') {
+                    message = 'Username or password already exist'
+                }
+                addMessage('register', message)
+            } catch (error) {
+                // Error during the request
+                console.log('Error during handling:', error.message);
+            }
+        }
+
+        const registerForm = document.getElementById('register-form');
+        const registerBtn = document.getElementById('registerBtn');
+
+        // Listen for changes in the register form inputs
+        registerForm.addEventListener('input', () => {
+            checkInputs(registerForm, registerBtn)
+        });
+        registerForm.addEventListener('submit', (event) => {
+            formDataHandler(event, registerForm, 'register')
+        });
+    </script>
+</body>
+
+</html>

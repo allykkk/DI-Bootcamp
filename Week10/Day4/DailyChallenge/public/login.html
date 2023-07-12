@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="login-div">
+        <p>Login</p>
+        <form id="login-form">
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" required />
+
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" required />
+            <button type="submit" id="loginBtn" disabled>Log In</button>
+            <div id="login-message"></div>
+        </form>
+    </div>
+    <script>
+        function addMessage(formType, message) {
+            const messageDiv = document.getElementById(`${formType}-message`)
+            messageDiv.innerHTML = ''
+            const messageP = document.createElement('p')
+            messageP.innerText = message
+            messageDiv.appendChild(messageP)
+        }
+
+        function checkInputs(form, button) {
+            let areInputsEmpty = false;
+
+            // Loop through each input within the form
+            for (const input of form.elements) {
+                if (input.tagName === 'INPUT' && input.value.trim() === '') {
+                    areInputsEmpty = true;
+                    break;
+                }
+            }
+
+            // Disable the login button if any input is empty
+            button.disabled = areInputsEmpty;
+        }
+
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.getElementById('loginBtn');
+
+        // Listen for changes in the login form inputs
+        loginForm.addEventListener('input', () => {
+            checkInputs(loginForm, loginBtn)
+        });
+
+
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "username": username,
+                    "password": password,
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'login') {
+                        message = `Hi ${username} welcome back again!`
+                    } else if (data.message === 'error2') {
+                        console.log('User is not registered');
+                    }
+                    addMessage('login', message)
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+        });
+
+    </script>
+</body>
+
+</html>
