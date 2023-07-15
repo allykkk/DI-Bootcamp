@@ -1,0 +1,15 @@
+<h2>Posts</h2>
+<% items.forEach(function(item) { %>
+    <div class="article-container">
+        <h3><a href="<%=item.link %>">
+                <%=item.title %>
+            </a></h2>
+            <p>
+                <%= item.pubDate %> | <%=item.creator %> | Categories: <b>
+                            <%= item.categories.join(",") %>
+                        </b>
+            </p>
+            <div><%- item.content.split("\n")[0] %></div>
+    </div>
+
+    <% }); %>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+</head>
+
+
+<body>
+    <%- include('../partials/header'); %>
+    <section>
+        <div class="left-container container">
+            <form method="post" action="/search/title">
+                <h3>Search Title</h3>
+                <input type="text" name="title"><br>
+                <button type="submit">Search</button>
+            </form>
+            <form method="post" action="/search/category">
+                <h3>Search Catgeory</h3>
+                <select name="category">
+                    <option value="" disabled selected></option>
+                    <% retrievedCategories.map(function(category) { %>
+                        <option value="<%= category %>"><%= category %></option>
+                        <% }); %>
+                </select><br>
+                <button type="submit">Search</button>
+            </form>
+            
+        </div>
+
+        <div class="right-container container">
+            <%- include('../partials/post'); %>
+        </div>
+    </section>
+
+    <%- include('../partials/footer'); %>
+</body>
+
+</html>
