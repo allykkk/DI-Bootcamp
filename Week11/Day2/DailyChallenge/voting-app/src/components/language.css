@@ -1,0 +1,28 @@
+.language, .voteCount {
+    display: flex;
+    align-items: center;
+}
+
+.voteCount {
+    border-radius: 50%;
+    justify-content: center;
+}
+
+.language button {
+    color: green;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.language {
+    flex: 1 1;
+    justify-content: space-between;
+    padding: 10px 40px;
+    background-color: #ffebcd;
+    border: 1px solid #222;
+    margin: 2px;
+}
