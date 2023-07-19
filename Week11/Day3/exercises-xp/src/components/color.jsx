@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 
+class Child extends Component {
+  componentWillUnmount() {
+    alert("The component named Header is about to be unmounted.");
+  }
+
+  render() {
+    return <h2>Hello World!</h2>;
+  }
+}
+
 class Color extends Component {
-  state = { favoriteColor: "red" ,
-};
+  state = { favoriteColor: "red", show: true };
 
   componentDidMount() {
     console.log("Component mounted");
@@ -33,6 +42,10 @@ class Color extends Component {
     this.setState({ favoriteColor: "blue" });
   };
 
+  handleDelete = () => {
+    this.setState({ show: false });
+  };
+
   render() {
     return (
       <div>
@@ -40,6 +53,13 @@ class Color extends Component {
           My Favorite Color is <i>{this.state.favoriteColor}</i>
         </h2>
         <button onClick={this.changeColor}>Change Color to Blue</button>
+
+        {this.state.show && (
+          <div className="Exercise 3">
+            <Child />
+            <button onClick={this.handleDelete}>Delete Header</button>
+          </div>
+        )}
       </div>
     );
   }

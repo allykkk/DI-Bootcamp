@@ -15,15 +15,15 @@ class ErrorBoundry extends Component {
 
   render() {
     if (this.state.error) {
-        console.log("Entered!")
+      console.log("Entered!");
       return (
         <>
-        <h1>Somthing went wrong. </h1>
-        <details style={{ whiteSpace: "pre-wrap" }}>
-          {this.state.error && this.state.error.toString()}
-          <br />
-          {this.state.errorInfo.componentStack}
-        </details>
+          <h1>Somthing went wrong. </h1>
+          <details style={{ whiteSpace: "pre-wrap" }}>
+            {this.state.error && this.state.error.toString()}
+            <br />
+            {this.state.errorInfo.componentStack}
+          </details>
         </>
       );
     }
