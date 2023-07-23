@@ -7,7 +7,7 @@ function App() {
   return (
     <div className='container'>
       <Header />
-      <PostForm/>
+      <PostForm />
     </div>
   );
 }
