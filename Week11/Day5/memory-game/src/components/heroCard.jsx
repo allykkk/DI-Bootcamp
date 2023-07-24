@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 
-const HeroCard = ({ heroes }) => {
+const HeroCard = ({ heroes, clickHandler }) => {
   return (
     <>
       {heroes.map((hero) => {
         return (
-          <div key={hero.id} className="card">
+          <div
+            key={hero.id}
+            className="card"
+            onClick={() => clickHandler(hero)}
+          >
             <div className="img-container">
               <img src={hero.image} alt={hero.name} />
             </div>
