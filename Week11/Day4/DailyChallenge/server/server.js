@@ -14,9 +14,9 @@ app.get('/api/hello', (req, res) => {
 
 })
 
-
 app.post('/api/world', (req, res) => {
     const userInput = req.body.value
+    console.log(`{post: '${userInput}'}`)
     res.send(`I received your POST request. This is what you sent me: ${userInput}`);
 })
 
