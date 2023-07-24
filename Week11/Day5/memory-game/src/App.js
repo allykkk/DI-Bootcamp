@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Header from './components/header';
+import Jumbotron from './components/jumbotron';
+import HeroCard from './components/heroCard';
+import data from "../src/components/data/superheroes.json";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+class App extends Component {
+  state = { score: 0, topScore: 0, heroes: data.superheroes };
+
+  render() {
+    return (<div className='wrapper'>
+      <header className='container-fluid fixed-top'>
+        <Header score={this.state.score} topScore={this.state.topScore} />
       </header>
-    </div>
-  );
+      <div className='jumbotron jumbotron-fluid'>
+        <Jumbotron />
+      </div>
+      <HeroCard heroes={this.state.heroes} />
+    </div>);
+  }
 }
 
 export default App;
